@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+	<link rel="stylesheet" type="text/css" href="./bootstrap/dist/css/bootstrap.min.css">
+</head>
+<script src="https://cdn.staticfile.org/jquery/1.10.2/jquery.min.js"></script>
+<script src="vue/dist/vue.js"></script>
+<style type="text/css">
+	.btn{
+		height:35px;width:70px;
+		background-color: skyblue;
+		font-family: '微软雅黑';
+		color:white;
+		font-size:10px;
+		margin-left: 50px;
+		margin-top:50px;
+	}
+	#container{
+		width:30%;
+		margin:300px auto;
+	}
+	.tag{
+		font-size: 25px;
+	}
+	.box{
+		height:50px;
+		border-radius: 5px;
+		margin-left: 25px;
+	}
+</style>
+<body>
+	<div id="container">
+		<div><p style="color:orange;font-size:20px;">{{msg}}</p></div>
+		<div>
+			<label class="tag">username:</label>
+			<input class="box" type="text" v-model="username" placeholder="please input username">
+		</div>
+		<div>
+			<label class="tag">password:</label>
+			<input class="box" style="margin-left:28px;margin-top:30px;" type="password" v-model="password" placeholder="please input password">
+		</div>
+		<div>
+			<button class="btn" @click="customerLogin">login</button>
+			<button class="btn">register</button>
+		</div>
+	</div>
+	<script type="text/javascript">
+		var app=new Vue({
+			el:'#container',
+			data:{
+				username:'',
+				password:'',
+				msg:""
+			},
+			methods:{
+				customerLogin:function(){
+					var data={
+						username:this.username,
+						password:this.password
+					}
+					$.ajax({
+					  url: '/login',
+					  data: data,
+					  method:'get',
+					  	var json=eval('('+str+')');
+					  	console.log(json.ok);
+						if(json.ok==true){
+							window.location.href="index.html";
+							console.log("jump")
+						}else{
+							app.msg=json.msg;
+						}
+					  },
+					  failed:function(err){
+					  	console.log("database error");
+					  }
+					});
+
+				}
+			}
+		})
+	</script>
+</body>
+</html>

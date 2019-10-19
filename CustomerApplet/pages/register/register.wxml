@@ -1,0 +1,76 @@
+<!--pages/register/register.wxml-->
+ <!-- <text>pages/register/register.wxml</text> -->
+<view class="container"> 
+
+ <view class="login-from"> 
+  
+ <!--账号-->
+ <view class="inputView"> 
+  <image class="nameImage" src="../../images/user.png"></image> 
+  <label class="loginLab">账号</label> 
+  <input class="inputText" placeholder="请输入账号" bindinput="usernameInput" /> 
+ </view> 
+ <view class="line"></view> 
+  
+ <!--密码-->
+ <view class="inputView"> 
+  <image class="keyImage" src="../../images/unlock.png"></image> 
+  <label class="loginLab">密码</label> 
+  <input class="inputText" password="true" placeholder="请输入密码" bindinput="passwordInput" /> 
+ </view> 
+  <view class="line"></view> 
+ <!--二次密码-->
+ <view class="inputView"> 
+  <image class="keyImage" src="../../images/unlock.png"></image> 
+  <label class="loginLab">确认密码</label> 
+  <input class="inputText" password="true" placeholder="请重新输入密码" bindinput="repasswordInput" /> 
+ </view> 
+  <view class="line"></view> 
+
+  <!--姓名-->
+ <view class="inputView"> 
+  <image class="nameImage" src="../../images/user.png"></image> 
+  <label class="loginLab">姓名</label> 
+  <input class="inputText" placeholder="请输入姓名" bindinput="nameInput" /> 
+ </view> 
+ <view class="line"></view> 
+  
+
+  <!--证件号-->
+ <view class="inputView"> 
+  <image class="nameImage" src="../../images/user.png"></image> 
+  <label class="loginLab">证件号</label> 
+  <input class="inputText" placeholder="请输入证件号" bindinput="creditInput" /> 
+ </view> 
+ <view class="line"></view> 
+ 
+   <!--联系方式-->
+ <view class="inputView"> 
+  <image class="nameImage" src="../../images/user.png"></image> 
+  <label class="loginLab">联系方式</label> 
+  <input class="inputText" placeholder="请输入联系方式" bindinput="phoneInput" /> 
+ </view> 
+ <view class="line"></view> 
+
+   <!--地址-->
+ <view class="inputView"> 
+  <image class="nameImage" src="../../images/user.png"></image> 
+  <label class="loginLab">住址</label> 
+  <input class="inputText" placeholder="请输入住址" bindinput="addressInput" /> 
+ </view> 
+ <view class="line"></view> 
+
+    <!--email-->
+ <view class="inputView"> 
+  <image class="nameImage" src="../../images/user.png"></image> 
+  <label class="loginLab">Email</label> 
+  <input class="inputText" placeholder="请输入Email" bindinput="emailInput" /> 
+ </view> 
+ <view class="line"></view> 
+
+ <!--按钮-->
+ <view class="loginBtnView"> 
+  <button class="loginBtn" type="primary" size="{{primarySize}}" loading="{{loading}}" plain="{{plain}}" disabled="{{disabled}}" bindtap="register">注册</button> 
+ </view> 
+ </view> 
+</view>

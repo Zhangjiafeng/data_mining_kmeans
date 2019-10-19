@@ -1,0 +1,59 @@
+<!--pages/register/register.wxml-->
+ <!-- <text>pages/register/register.wxml</text> -->
+<view class="container"> 
+ <view class="login-icon"> 
+ <image class="login-img" src="../../images/loginBK.jpg"></image> 
+ </view> 
+ <view class="login-from"> 
+  
+ <!--账号-->
+ <view class="inputView"> 
+  <image class="nameImage" src="../../images/user.png"></image> 
+  <label class="loginLab">账号</label> 
+  <input class="inputText" placeholder="请输入账号" bindinput="phoneInput" /> 
+ </view> 
+ <view class="line"></view> 
+  
+ <!--密码-->
+ <view class="inputView"> 
+  <image class="keyImage" src="../../images/unlock.png"></image> 
+  <label class="loginLab">密码</label> 
+  <input class="inputText" password="true" placeholder="请输入密码" bindinput="passwordInput" /> 
+ </view> 
+  
+ <!--按钮-->
+ <view class="loginBtnView"> 
+  <button class="loginBtn" type="primary" size="{{primarySize}}" loading="{{loading}}" plain="{{plain}}" disabled="{{disabled}}" bindtap="login">登录</button> 
+ </view> 
+ 
+<!-- 注册 -->
+  <view class='regis'>
+
+    <navigator class='newUser' url='../register/register'>注册新用户</navigator>
+  </view>
+ </view> 
+</view>
+
+<!-- 
+  <navigator url='../DetailInfo/DetailInfo?id={{item._id}}' wx:for="{{Infos}}">
+     <!-- <view class='item'>
+        <view style='display:flex;flex:1'>
+          <image style='width:200rpx;height:200rpx;border-radius:100rpx;' src='{{item.image}}'></image>
+        </view>
+        <view style='display:flex;flex:3;flex-direction:column;margin-left:40rpx'>
+        <text>名称：{{item.name}}</text>
+          <text>时间：{{item.date}}</text>
+          <text>地点：{{item.address}}</text>
+        </view>
+    </view>  -->
+    <!-- <view style='background:#2296f5;color:#fff;width:80%;height:500rpx;border-radius:10rpx;margin:50rpx auto;overflow:hidden;box-shadow: 0 0 1em skyblue;'>
+      <view style='height:280rpx;overflow:hidden;'>
+        <image style='width:100%;'src="http://39.106.149.14:8080/{{item.image}}"></image>
+      </view>
+      <view style='margin:20rpx 35rpx;font-family:"Hiragino Sans GB";'>
+        <text style='display:block;font-size:40rpx;'>{{item.name}}</text>
+        <text style='display:block;margin-top:20rpx;font-size:34rpx'>日期：{{item.date}}</text>
+        <text style='display:block;font-size:34rpx;'>地点：{{item.address}}</text>
+      </view>
+    </view>
+  </navigator> --> 

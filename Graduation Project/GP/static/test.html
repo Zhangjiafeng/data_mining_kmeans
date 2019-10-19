@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+  <input type="file" id="excel_file">
+</body>
+<script src="https://cdn.staticfile.org/jquery/1.10.2/jquery.min.js"></script>
+<script type="text/javascript" src="http://localhost:8080/xlsx.core.min.js"></script>
+<script>
+$('#excel_file').change(function(e) {
+    var files = e.target.files;
+    var fileReader = new FileReader();
+    fileReader.onload = function(ev) {
+    try {
+        var data = ev.target.result,
+            workbook = XLSX.read(data, {
+                type: 'binary'
+            }), // 以二进制流方式读取得到整份excel表格对象
+            persons = []; // 存储获取到的数据
+        } catch (e) {
+              console.log('文件类型不正确');
+              return;
+        }
+
+        // 表格的表格范围，可用于判断表头是否数量是否正确
+            var fromTo = '';
+            // 遍历每张表读取
+            for (var sheet in workbook.Sheets) {
+                if (workbook.Sheets.hasOwnProperty(sheet)) {
+                    fromTo = workbook.Sheets[sheet]['!ref'];
+                    persons = persons.concat(XLSX.utils.sheet_to_json(workbook.Sheets[sheet]));
+                }
+            }
+            kmeans(persons);
+          console.log(persons)
+            // jQuery.ajax({
+            //   url:"/customer/add",
+            //   type:'POST',
+            //   dataType:'json',
+            //   data:{
+            //     persons:persons
+            //   },
+            //   success:function(resMsg){
+            //     console.log(resMsg)
+            //   },
+            //   error:function(res){
+            //     console.log('error...')
+            //   }
+            // })
+     
+        };
+    fileReader.readAsBinaryString(files[0]);
+});
+var iter=500;
+var feature_number=2;
+var k=6;
+var x=0;
+function kmeans(persons){
+  var data=[];
+  for(let i=0;i<106;i++){
+    data[i]=[];
+    data[i][0]=persons[i]['evaluation']*10;
+    data[i][1]=persons[i]['salary'];
+    data[i][2]=persons[i]['times'];
+    data[i][3]=-1;
+  }
+  var centers=[];
+  for(let i=0;i<k;i++){
+    centers[i]={};
+    centers[i].x=Math.random()*50+50;
+    centers[i].y=Math.random()*50+50;
+    centers[i].z=Math.random()*100+20;
+  }
+  var flag=0;
+  while((x<iter)&&(!flag)){
+    var centersTemp=[];
+    for(let i=0;i<k;i++){
+      centersTemp[i]={};
+      centersTemp[i].x=centers[i].x;
+      centersTemp[i].y=centers[i].y;
+      centersTemp[i].z=centers[i].z;
+    }
+    for(let i=0;i<106;i++){
+      var dist=[];
+      var min=10000000000;
+      for(let j=0;j<k;j++){
+        dist[j]=Math.pow((Math.pow((data[i][0]-centers[j].x),2)+Math.pow((data[i][0]-centers[j].y),2)+Math.pow((data[i][2]-centers[j].z),2)),1/3);
+        if(min>dist[j]){
+          min=dist[j];
+          data[i][3]=j;
+        }
+      }
+    }
+    for(let j=0;j<k;j++){
+      var num=0;
+      var centerxSum=0;
+      var centerySum=0;
+      var centerzSum=0;
+      for(let i=0;i<106;i++){
+        if(data[i][3]==j){
+          centerxSum+=data[i][0];
+          centerySum+=data[i][1];
+          centerzSum+=data[i][2];
+          num++;
+        }
+      }
+      if(num>0){
+        centers[j].x=centerxSum/num;
+        centers[j].y=centerySum/num;
+        centers[j].z=centerzSum/num;
+        console.log("x="+centers[j].x+"  y="+centers[j].y+"  z="+centers[j].z)
+
+        num=0;
+      }
+    }
+    for(let j=0;j<k;j++){
+      if((centersTemp[j].x==centers[j].x)&&(centersTemp[j].y==centers[j].y)&&(centersTemp[j].z==centers[j].z)){
+        flag=1;
+      }else{
+        flag=0;
+      }
+    }
+    x++;
+  }
+  console.log("次数=="+x);
+  for(let i=0;i<106;i++){
+    console.log(data[i][3]);
+  }
+  for(let j=0;j<k;j++){
+    console.log("x="+centers[j].x+"  y="+centers[j].y+"  z="+centers[j].z)
+  }
+}
+</script>
+</html>

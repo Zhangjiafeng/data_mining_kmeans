@@ -1,0 +1,637 @@
+
+<!DOCTYPE html>
+<html class="no-js">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>企业管理页面</title>
+  <meta name="description" content="这是一个 table 页面">
+  <meta name="keywords" content="table">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="renderer" content="webkit">
+  <meta http-equiv="Cache-Control" content="no-siteapp" />
+  <link rel="icon" type="image/png" href="assets/i/favicon.png">
+  <link rel="apple-touch-icon-precomposed" href="/i/app-icon72x72@2x.png">
+  <meta name="apple-mobile-web-app-title" content="Amaze UI" />
+  <link rel="stylesheet" href="http://39.106.149.14:8080/amazeUI/css/amazeui.min.css"/>
+  <link rel="stylesheet" href="http://39.106.149.14:8080/amazeUI/css/admin.css">
+</head>
+     <style type="text/css">
+           #index-title{
+                width: 315px;
+                margin: 50px auto;
+               font-size: 35px;
+               font-family: "微软雅黑";
+               text-shadow: 1px 1px 1px skyblue;
+               color: #0e90d2;
+           }
+      </style>
+<body>
+<header class="am-topbar am-topbar-inverse admin-header">
+	<script src="http://39.106.149.14:8080/vue/dist/vue.js"></script>
+	<script src="https://cdn.staticfile.org/jquery/1.10.2/jquery.min.js"></script>
+  <div class="am-topbar-brand">
+    <strong>企业管理页面</strong> <small>后台管理页面</small>
+  </div>
+
+  <button class="am-topbar-btn am-topbar-toggle am-btn am-btn-sm am-btn-success am-show-sm-only" data-am-collapse="{target: '#topbar-collapse'}"><span class="am-sr-only">导航切换</span> <span class="am-icon-bars"></span></button>
+
+  <div class="am-collapse am-topbar-collapse" id="topbar-collapse">
+
+    <ul class="am-nav am-nav-pills am-topbar-nav am-topbar-right admin-header-list">
+
+      <li class="am-dropdown" data-am-dropdown>
+        <a class="am-dropdown-toggle" data-am-dropdown-toggle href="javascript:;">
+          <span class="am-icon-users"></span> 管理员 <span class="am-icon-caret-down"></span>
+        </a>
+        <ul class="am-dropdown-content">
+          <li><a href="#"><span class="am-icon-user"></span> 资料</a></li>
+          <li><a href="#"><span class="am-icon-cog"></span> 设置</a></li>
+          <li><a href="/admin/outLogin"><span class="am-icon-power-off"></span> 退出</a></li>
+        </ul>
+      </li>
+      <li class="am-hide-sm-only"><a href="javascript:;" id="admin-fullscreen"><span class="am-icon-arrows-alt"></span> <span class="admin-fullText">开启全屏</span></a></li>
+    </ul>
+  </div>
+</header>
+<div class="am-cf admin-main">
+  <!-- sidebar start -->
+  <div id="guider">
+  <div class="admin-sidebar am-offcanvas" id="admin-offcanvas">
+    <div class="am-offcanvas-bar admin-offcanvas-bar">
+      <ul class="am-list admin-sidebar-list">
+        <!-- <li><a href="admin-index.html"><span class="am-icon-home"></span> 首页</a></li> -->
+        <li class="admin-parent">
+          <a class="am-cf" data-am-collapse="{target: '#activity-nav'}"><span class="am-icon-file"></span> 客户信息管理 <span class="am-icon-angle-right am-fr am-margin-right"></span></a>
+          <ul class="am-list am-collapse admin-sidebar-sub" id="activity-nav">
+            <li @click='disCus' id="switch"><a href="#" class="am-cf"><span class="am-icon-check"></span> 客户信息查询<span class="am-icon-star am-fr am-margin-right admin-icon-yellow"></span></a></li>
+          </ul>
+        </li>
+        <li class="admin-parent">
+          <a class="am-cf" data-am-collapse="{target: '#publisher-nav'}"><span class="am-icon-file"></span> 教师信息管理 <span class="am-icon-angle-right am-fr am-margin-right"></span></a>
+          <ul class="am-list am-collapse admin-sidebar-sub" id="publisher-nav">
+            <li @click="disTea"><a href="#" class="am-cf"><span class="am-icon-check"></span><span @click='disTea'>教师信息列表</span><span class="am-icon-star am-fr am-margin-right admin-icon-yellow"></span></a></li>
+            <li @click='addTea'><a href="#"><span class="am-icon-puzzle-piece"></span> 添加教师</a></li>
+          </ul>
+        </li>
+      </ul>
+      <div class="am-panel am-panel-default admin-sidebar-panel">
+        <div class="am-panel-bd">
+          <p><span class="am-icon-bookmark"></span> 公告</p>
+          <p>时光静好，与君语；细水流年，与君同。—— Amaze UI</p>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+<!--sidebar end-->
+
+
+<!--content start-->
+<div class="admin-content">
+  <div class="admin-content-body">
+  <div id="container" style="overflow:scroll;overflow-y: visible;">
+    <!-- context -->
+    <div id="context" v-show="status==='context'">
+      <div class="admin-content">
+        <div class="admin-content-body">
+          <div class="am-cf am-padding am-padding-bottom-0">
+              <div class="am-fl am-cf"><strong class="am-text-primary am-text-lg">首页</strong></div>
+          </div>
+          <hr>
+       
+          <div id="index-title">欢迎进入客户管理</div>
+         <ul class="am-avg-sm-1 am-avg-md-1 am-margin am-padding am-text-center admin-content-list ">
+            <li><a href="#" class="am-text-success">
+              <span class="am-icon-btn am-icon-file-text"></span>
+              <br/>当前日期<br/>{{year}}年{{month}}月{{day}}日</a>
+            </li>
+          </ul>
+        </div>
+    </div>
+</div>
+
+<!-- customerDisplay -->
+  <div id="customerDisplay" v-show="status==='customers'">
+    <div class="admin-content">
+    <div class="admin-content-body">
+      <div class="am-cf am-padding am-padding-bottom-0">
+        <div class="am-fl am-cf"><strong class="am-text-primary am-text-lg">客户管理</strong> / <small>客户审查</small></div>
+      </div>
+      <hr>
+
+
+      <div class="am-g">
+        <div class="am-u-sm-12">
+          <form class="am-form">
+            <table class="am-table am-table-striped am-table-hover table-main">
+              <thead>
+              <tr>
+                <th class="table-title">姓名</th><th class="table-type">联系方式</th><th class="table-author am-hide-sm-only">住址</th><th class="table-date am-hide-sm-only">email</th>
+              </tr>
+              </thead>
+              <tbody>
+              
+        <tr v-for="item in displayCustomers">
+          <td>{{item.name}}</td>
+          <td>{{item.tel}}</td>
+          <td>{{item.address}}</td>
+          <td>{{item.email}}</td>
+        
+        </tr>
+              </tbody>
+            </table>
+          </form>
+        </div>
+
+      </div>
+    </div>
+    <div style="margin:auto;position: relative;">
+             <div class="am-btn-group am-btn-group-xs">
+                    <a href="#"><button class="display am-btn am-btn-default am-btn-xs am-text-secondary" type="button"><span class="am-icon-pencil-square-o"></span> 上一页</button></a>
+                      <a href="#"><button class="display am-btn am-btn-default am-btn-xs am-text-secondary" type="button"><span class="am-icon-pencil-square-o"></span> 下一页</button></a>
+                      </div>
+                    <div style="position: absolute;top:0px;left:200px;" class="am-u-sm-12 am-u-md-3">
+                  <input v-model='currentPage' style="position: absolute;top:0px;left: 0px;width:100px;" type="text" name="" value="1">
+                <span style="position: absolute;top:0;left:110px;">/1</span> 
+        </div>
+                    </div>
+  </div>
+
+</div>
+    <!-- teachersInfoDisplay -->
+  <div id="teachersInfoDisplay" v-show="status==='teachers'">
+
+
+      <div class="am-cf am-padding am-padding-bottom-0">
+        <div class="am-fl am-cf"><strong class="am-text-primary am-text-lg">教师管理</strong> / <small>教师审查</small></div>
+      </div>
+      <hr>
+
+
+      <div class="am-g">
+        <div class="am-u-sm-12">
+          <form class="am-form">
+            <table class="am-table am-table-striped am-table-hover table-main">
+              <thead>
+              <tr>
+                <th class="table-title">姓名</th><th class="table-type">性别</th><th class="table-author am-hide-sm-only">地址</th><th class="table-date am-hide-sm-only">工资</th><th class="table-set">操作</th>
+              </tr>
+              </thead>
+              <tbody>
+              
+        <tr v-for="item in displayTeachers">
+          <td>{{item.name}}</td>
+          <td>{{item.sex}}</td>
+          <td>{{item.address}}</td>
+          <td>{{item.salary}}</td>
+          <td>
+              <div class="am-btn-toolbar">
+                  <div class="am-btn-group am-btn-group-xs">
+                    <a @click='getModTeacher(item._id)' href="#"><button class="display am-btn am-btn-default am-btn-xs am-text-secondary" type="button"><span class="am-icon-pencil-square-o"></span> 修改</button></a>
+                      <a @click='delTeacher(item._id)' href="#"><button class="am-btn am-btn-default am-btn-xs am-text-danger am-hide-sm-only" type="button">
+                       <span class="am-icon-trash-o"></span> 删除</button></a>
+                      </div>
+                    </div>
+                  </td>
+        </tr>
+              </tbody>
+            </table>
+          </form>
+        </div>
+
+      </div>
+    <div style="margin:auto;position: relative;">
+             <div class="am-btn-group am-btn-group-xs">
+                    <a @click='prePage' href="#"><button class="display am-btn am-btn-default am-btn-xs am-text-secondary" type="button"><span class="am-icon-pencil-square-o"></span> 上一页</button></a>
+                      <a @click='nextPage' href="#"><button class="display am-btn am-btn-default am-btn-xs am-text-secondary" type="button"><span class="am-icon-pencil-square-o"></span> 下一页</button></a>
+                      </div>
+                    <div style="position: absolute;top:0px;left:200px;" class="am-u-sm-12 am-u-md-3">
+                  <input v-model='currentPage' style="position: absolute;top:0px;left: 0px;width:100px;" type="text" name="">
+                <span style="position: absolute;top:0;left:110px;">/{{sumPage}}</span> 
+        </div>
+                    </div>
+ 
+
+</div>
+    <!-- add Teachers -->
+
+<div v-show="status=='addTea'">
+ <div class="admin-content">
+        <div class="admin-content-body">
+            <div class="am-cf am-padding am-padding-bottom-0">
+                <div class="am-fl am-cf">
+                    <strong class="am-text-primary am-text-lg">添加老师</strong>
+                </div>
+            </div>
+
+            <hr>
+
+              <form class="am-form" >
+                <fieldset>
+
+                    <div class="am-form-group">
+                        <label for="doc-ipt-name-1">姓名</label>
+                        <input v-model="teacherName" name="name" type="text" class="" id="doc-ipt-name-1" placeholder="Enter Teacher Name" required>
+                    </div>
+
+                    <div class="am-form-group">
+                        <label for="doc-ipt-name-1">性别</label>
+                       <!--  <input v-model='teacherSex' name="name" type="text" class="" id="doc-ipt-name-1" placeholder="Enter Sex" required> -->
+                       
+                        <input v-model="teacherSex" name="name" type="text" class="" id="doc-ipt-name-1" placeholder="Enter Teacher Name" required>
+                    </div>
+
+            
+                    <div class="am-form-group">
+                        <label for="doc-ipt-address-1">地址</label>
+                        <input v-model='teacherAddress' name="address" type="text" class="" id="doc-ipt-address-1" placeholder="Enter Address" required>
+                    </div>
+                    <div class="am-form-group">
+                        <label for="doc-ipt-time-1">联系方式</label>
+                        <input v-model='teacherTel' name="time" type="text" class="" id="doc-ipt-time-1" placeholder="Enter Tel" required>
+                    </div>
+
+                    <div class="am-form-group">
+                        <label for="doc-ipt-address-1">证件号</label>
+                        <input v-model='teacherCredit' name="address" type="text" class="" id="doc-ipt-address-1" placeholder="Enter CreditCard Number" required>
+                    </div>
+                    <div class="am-form-group">
+                        <label for="doc-ipt-time-1">薪资要求</label>
+                        <input v-model='teacherSalary' name="time" type="text" class="" id="doc-ipt-time-1" placeholder="Enter Salary Requirement" required>
+                    </div>
+            
+                   
+                </fieldset>
+      </form>
+             <p>
+                <button @click='addTeacher' class="am-btn-primary" style="width:80px;height: 35px;">提交</button>
+             </p>
+        </div>
+    </div>
+
+</div>
+
+
+<!-- modify teacher-->
+<div v-show="status=='modTea'">
+  <div class="admin-content">
+        <div class="admin-content-body">
+            <div class="am-cf am-padding am-padding-bottom-0">
+                <div class="am-fl am-cf">
+                    <strong class="am-text-primary am-text-lg">修改教师</strong>
+                </div>
+            </div>
+
+            <hr>
+
+              <form class="am-form" >
+                <fieldset>
+
+                    <div class="am-form-group">
+                        <label for="doc-ipt-name-1">姓名</label>
+                        <input v-model="teacherName" name="name" type="text" class="" id="doc-ipt-name-1" placeholder="Enter Teacher Name" required>
+                    </div>
+
+                    <div class="am-form-group">
+                        <label for="doc-ipt-name-1">性别</label>
+                       <!--  <input v-model='teacherSex' name="name" type="text" class="" id="doc-ipt-name-1" placeholder="Enter Sex" required> -->
+                       <input v-model="teacherSex" name="name" type="text" class="" id="doc-ipt-name-1" placeholder="Enter Teacher Name" required>
+                    </div>
+
+            
+                    <div class="am-form-group">
+                        <label for="doc-ipt-address-1">地址</label>
+                        <input v-model='teacherAddress' name="address" type="text" class="" id="doc-ipt-address-1" placeholder="Enter Address" required>
+                    </div>
+                    <div class="am-form-group">
+                        <label for="doc-ipt-time-1">联系方式</label>
+                        <input v-model='teacherTel' name="time" type="text" class="" id="doc-ipt-time-1" placeholder="Enter Tel" required>
+                    </div>
+
+                    <div class="am-form-group">
+                        <label for="doc-ipt-address-1">证件号</label>
+                        <input v-model='teacherCredit' name="address" type="text" class="" id="doc-ipt-address-1" placeholder="Enter CreditCard Number" required>
+                    </div>
+                    <div class="am-form-group">
+                        <label for="doc-ipt-time-1">薪资要求</label>
+                        <input v-model='teacherSalary' name="time" type="text" class="" id="doc-ipt-time-1" placeholder="Enter Salary Requirement" required>
+                    </div>
+            
+                   
+                </fieldset>
+      </form>
+            
+                <button @click='modTeacher' class="am-btn-primary" style="width:80px;height: 35px;">提交</button>
+            
+          
+                <button @click='cancelMod' class="am-btn-primary" style="width:80px;height: 35px;">取消</button>
+             
+        </div>
+    </div>
+</div>
+    <!--  -->
+ 
+  
+ </div>
+</div>
+</div>
+ <script type="text/javascript">
+   var displayLength=10;
+   const app=new Vue({
+    el:'#container',
+    data:{
+      teachers:[],
+      displayTeachers:[],
+      allTeachers:[],
+      status:'context',
+      disPage:0,
+      year:2019,
+      month:0,
+      day:0,
+      teacherName:'',
+      teacherSex:"",
+      teacherAddress:'',
+      teacherCredit:'',
+      teacherTel:'',
+      teacherSalary:0,
+      modTeaId:null,
+      customers:[],
+      displayCustomers:[],
+      allCustomers:[],
+      disPageCus:0
+    },
+  
+    methods:{
+      modTeacher:function(id){
+        jQuery.ajax({
+          url:'/customer/modTeacher',
+          type:'post',
+          data:{
+            id:app.modTeaId,
+            name:app.teacherName,
+            sex:app.teacherSex,
+            address:app.teacherAddress,
+            credit:app.teacherCredit,
+            tel:app.teacherTel,
+            salary:app.teacherSalary
+          },
+          success:function(res){
+            if(res=='1'){
+              getAllTeacher();
+              alert('修改成功');
+            }
+          },
+          failed:function(res){
+            console.log('something error')
+          }
+        })
+      },
+      cancelMod:function(){
+        app.status='teachers';
+      },
+      getModTeacher:function(id){
+        app.modTeaId=id;
+        jQuery.ajax({
+          url:'/customer/getModTeacher',
+          type:'post',
+          data:{
+            id:id
+          },
+          success:function(res){
+            app.status='modTea';
+            app.teacherName=res.name;
+            app.teacherSex=res.sex;
+            app.teacherSalary=res.salary;
+            app.teacherAddress=res.address;
+            app.teacherTel=res.tel;
+            app.teacherCredit=res.creditCard;
+            console.log(res);
+          },
+          failed:function(res){
+            console.log('error...')
+          }
+        })
+      },
+      addTeacher:function(){
+        jQuery.ajax({
+          url:'/customer/addTeacher',
+          type:'post',
+          data:{
+            name:app.teacherName,
+            sex:app.teacherSex,
+            address:app.teacherAddress,
+            credit:app.teacherCredit,
+            tel:app.teacherTel,
+            salary:app.teacherSalary
+          },
+          success:function(res){
+            if(res=='1'){
+              alert('添加成功！')
+              app.teacherName='';
+              app.teacherSex='';
+              app.teacherTel='';
+              app.teacherAddress='';
+              app.teacherCredit='';
+              app.teacherSalary=0;
+            }
+            getAllTeacher();
+          },
+          failed:function(res){
+            alert('添加失败！')
+            console.log('error...')
+          }
+        })
+      },
+      delTeacher:function(id){
+        // console.log(id);
+        if(window.confirm('你确定要删除吗？')){
+          //alert("确定");
+          jQuery.ajax({
+            url:'/customer/delTeacher',
+            type:'post',
+            data:{
+              id:id
+            },
+            success:function(res){
+              //console.log('success')
+              console.log(res);
+              for(let i=0;i<app.teachers.length;i++){
+                if(app.teachers[i]._id===id){
+                  app.teachers.splice(i,1);
+                }
+              }
+              for(let i=0;i<app.allTeachers.length;i++){
+                if(app.allTeachers[i]._id===id){
+                  app.allTeachers.splice(i,1);
+                }
+              }
+               if(app.disPage==Math.floor(app.teachers.length/displayLength)){
+                app.displayTeachers=app.teachers.slice(app.disPage*10,app.teachers.length)
+                return;
+              }else if(app.disPage==Math.floor(app.teachers.length/displayLength-1)){
+                app.displayTeachers=app.teachers.slice(app.disPage*10,app.teachers.length)
+              }else{
+                app.displayTeachers=app.teachers.slice(app.disPage*10,app.disPage*10+10);
+              }
+
+            },
+            failed:function(res){
+              console.log('error...')
+            }
+          })
+          return true;
+        }else{
+          return false;
+        }
+      },
+      prePage:function(){
+       // console.log(app.teachers.length)
+       if(app.disPage==0){
+        return;
+       }else{
+        app.disPage--;
+        app.displayTeachers=app.teachers.slice(app.disPage*10,app.disPage*10+10);
+       }
+      },
+      nextPage:function(){
+         if(app.disPage==Math.floor(app.teachers.length/displayLength)){
+              return;
+         }else if(app.disPage==Math.floor(app.teachers.length/displayLength-1)){
+          app.disPage++;
+          app.displayTeachers=app.teachers.slice(app.disPage*10,app.teachers.length)
+         }else{
+          app.disPage++;
+          app.displayTeachers=app.teachers.slice(app.disPage*10,app.disPage*10+10);
+         }
+      },
+      getTeachers:function(){
+        jQuery.ajax({
+          url:"/customer/getTeachers",
+          type:'get',
+          dataType:'json',
+          success:function(res){
+            app.disPage=0;
+              app.teachers=res;
+              app.allTeachers=res;
+              app.displayTeachers=app.teachers.slice(0,10);
+              console.log(app.displayTeachers)
+          },
+          failed:function(res){
+            console.log("error")
+          }
+        })
+      },
+      getCustomers:function(){
+           jQuery.ajax({
+              url:'/customer/getCustomers',
+              type:'post',
+              dataType:'json',
+              success:function(res){
+                app.disPageCus=0;
+                app.customers=res;
+                app.allCustomers=res;
+                app.displayCustomers=app.customers.slice(0,10);
+              },
+              failed:function(res){
+                console.log("error")
+              }
+            })
+      }
+    },
+    created:function(){
+      this.year=(new Date()).getFullYear();
+      this.month=(new Date()).getMonth()+1;
+      this.day=(new Date()).getDate();
+      this.getTeachers();
+      this.getCustomers();
+    },
+    computed:{
+      sumPage:function(){
+        return Math.ceil(this.teachers.length/10);
+      },
+      currentPage:function(){
+        return this.disPage+1;
+      }
+    }
+   })
+   const guider=new Vue({
+    el:'#guider',
+    data:{
+      teacherName:''
+    },
+    methods:{
+      disTea:function(){
+        app.status='teachers'
+      },
+      addTea:function(){
+        app.teacherName='';
+       app.teacherSex='';
+       app.teacherTel='';
+       app.teacherAddress='';
+       app.teacherCredit='';
+       app.teacherSalary=0;
+        console.log("addTea")
+        app.status='addTea';
+      },
+      disCus:function(){
+        app.status='customers'
+      }
+    }
+   })
+   
+   var getAllTeacher=function(){
+        jQuery.ajax({
+          url:"/customer/getTeachers",
+          type:'get',
+          dataType:'json',
+          success:function(res){
+            app.disPage=0;
+              app.teachers=res;
+              app.allTeachers=res;
+              app.displayTeachers=app.teachers.slice(0,10);
+              console.log(app.displayTeachers)
+             // console.log(this.teachers);
+          },
+          failed:function(res){
+            console.log("error")
+          }
+        })
+   }
+  var getAllCustomer=function(){
+    jQuery.ajax({
+      url:'/customer/getCustomers',
+      type:'post',
+      dataType:'json',
+      success:function(res){
+        app.disPageCus=0;
+        app.customers=res;
+        app.allCustomers=res;
+        app.displayCustomers=app.customers.slice(0,10);
+      },
+      failed:function(res){
+        console.log("error")
+      }
+    })
+}
+
+ </script>
+
+  <!--以下为footer-->
+</div>
+
+<a href="#" class="am-icon-btn am-icon-th-list am-show-sm-only admin-menu" data-am-offcanvas="{target: '#admin-offcanvas'}"></a>
+
+<footer>
+  <hr>
+  <p class="am-padding-left">© 2014 AllMobilize, Inc. Licensed under MIT license.</p>
+</footer>
+<script src="/amazeUI/js/jquery.min.js"></script>
+<!--<![endif]-->
+<script src="/amazeUI/js/amazeui.min.js"></script>
+<script src="/amazeUI/js/app.js"></script>
+ 
+
+</body>
+</html>

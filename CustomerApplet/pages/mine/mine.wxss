@@ -1,0 +1,39 @@
+/* pages/mine/mine.wxss */
+page{
+  height:100%;
+}
+#loginNav{
+  width:100%;
+  height:400rpx;
+  background-size: 100% 100%;
+}
+.Item{
+  width:750rpx;
+  height:120rpx;
+  border:2rpx;
+  line-height: 120rpx;
+  margin-bottom:5rpx;
+  background: white;
+  position: relative;
+}
+.itemInfo{
+  font-family: "微软雅黑";
+  margin-left: 100rpx;
+}
+.photo{
+  position: absolute;
+  top:120rpx;
+  left:50rpx;
+  width:120rpx;
+  height:120rpx;
+  border-radius: 75rpx;
+  overflow: hidden;
+
+}
+.img{
+  width:60rpx;
+  height:60rpx;
+  position: absolute;
+  top:30rpx;
+  left:25rpx;
+}

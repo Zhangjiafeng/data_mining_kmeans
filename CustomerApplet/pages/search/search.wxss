@@ -1,0 +1,44 @@
+.button{
+ font-family: "微软雅黑";
+  margin:50rpx auto;
+  height:80rpx;
+  color:white;
+  line-height: 80rpx;
+  font-size: 35rpx;
+  width:300rpx;
+  background: #1aac19;
+}
+.Item{
+  width:750rpx;
+  height:120rpx;
+  border:2rpx;
+  line-height: 120rpx;
+  margin-bottom:5rpx;
+  background: white;
+  position: relative;
+}
+.itemInfo{
+  font-family: "微软雅黑";
+  margin-left: 100rpx;
+}
+.photo{
+  position: absolute;
+  top:120rpx;
+  left:50rpx;
+  width:120rpx;
+  height:120rpx;
+  border-radius: 75rpx;
+  overflow: hidden;
+}
+.Orange{
+  color:orange
+}
+.btn{
+  width:100rpx;
+  height:50rpx;
+  border-radius:15rpx;
+  border: 2rem skyblue;
+  position: absolute;
+  top:20rpx;
+  right:50rpx;
+}

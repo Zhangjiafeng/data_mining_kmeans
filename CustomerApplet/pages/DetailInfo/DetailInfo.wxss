@@ -1,0 +1,44 @@
+/* pages/Info/Info.wxss */
+text{
+  display: block;
+}
+.title{
+  text-align: center;
+  margin-top:30rpx;
+  font-weight: bold;
+  font-family: "微软雅黑"
+}
+.date{
+  margin-top:15rpx;
+  text-align: right;
+  margin-right:30rpx;
+  color:#ccc;
+  font-size: 30rpx;
+}
+.publisher{
+  text-align: right;
+  color: #ccc;
+  font-size: 30rpx;
+  margin-right:30rpx;
+}
+.intro{
+  font-family: "楷体";
+  text-indent: 2em;
+  line-height: 1.5em;
+  margin:25rpx 30rpx;
+  border:#ccc solid;
+  border-radius:20rpx;
+}
+image{
+  margin-left:30rpx;
+  width:695rpx;
+}
+.button{
+ font-family: "微软雅黑";
+  margin:50rpx auto;
+  height:80rpx;
+  line-height: 80rpx;
+  font-size: 35rpx;
+  width:500rpx;
+  background: #1aac19;
+}

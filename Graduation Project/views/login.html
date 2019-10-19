@@ -1,0 +1,546 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>用户登录</title>
+
+<style type="text/css">
+*{
+	margin: 0;
+	padding: 0;
+}
+.bg-blur{
+    float: left;
+    width: 100%;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+    -webkit-filter: blur(15px);
+    -moz-filter: blur(15px);
+    -o-filter: blur(15px);
+    -ms-filter: blur(15px);
+    filter: blur(15px);
+}
+
+body{
+	font-family: "微软雅黑";
+	font-size: 14px;
+	background: url(/images/background_login.jpg) fixed center center;
+	/*background:skyblue;*/
+}
+.logo_box{
+	width: 280px;
+	height: 490px;
+	padding: 35px;
+	color: #EEE;
+	position: absolute;
+	left: 50%;
+	top:180px;
+	margin-left: -175px;
+}
+.logo_box h1{
+	text-align: center;
+	height: 20px;
+	font: 20px "microsoft yahei",Helvetica,Tahoma,Arial,"Microsoft jhengHei",sans-serif;
+	color: #FFFFFF;
+	height: 20px;
+	line-height: 20px;
+	padding:0 0 35px 0;
+}
+.forms{
+	width: 280px;
+	height: 485px;
+}
+.logon_inof{
+	width: 100%;
+	min-height: 450px;
+	padding-top: 35px;
+	position: relative;
+}		
+.input_outer{
+	height: 46px;
+	padding: 0 5px;
+	margin-bottom: 20px;
+	border-radius: 50px;
+	position: relative;
+	border: rgba(255,255,255,0.2) 2px solid !important;
+}
+.u_user{
+	width: 25px;
+	height: 25px;
+	background-position: -125px 0;
+	position: absolute;
+	margin: 12px 13px;
+}
+.us_uer{
+	width: 25px;
+	height: 25px;
+	background-image: url(image/user.png);
+	background-position: -125px -34px;
+	position: absolute;
+	margin: 12px 13px;
+}
+.l-login{
+	position: absolute;
+	z-index: 1;
+	left: 50px;
+	top: 0;
+	height: 46px;
+	font: 14px "microsoft yahei",Helvetica,Tahoma,Arial,"Microsoft jhengHei";
+	line-height: 46px;
+}
+label{
+	color: rgb(255, 255, 255);
+	display: block;
+}
+.text{
+	width: 220px;
+	height: 46px;
+	outline: none;
+	display: inline-block;
+	font: 14px "microsoft yahei",Helvetica,Tahoma,Arial,"Microsoft jhengHei";
+	margin-left: 50px;
+	border: none;
+	background: none;
+	line-height: 46px;
+}
+
+.mb2{
+	margin-bottom: 20px
+}
+.mb2 a{
+	text-decoration: none;
+	outline: none;
+}
+.submit {
+	padding: 15px;
+	margin-top: 20px;
+	display: block;
+}
+.act-but{
+	height: 20px;
+	line-height: 20px;
+	text-align: center;
+	font-size: 20px;
+	border-radius: 50px;
+	background: #0096e6;
+}
+.blinking{
+    width: 80px;
+    height: 80px;
+    border-radius: 5px;
+    position: relative;
+    padding: 8px;
+    margin: 0 auto;
+}
+.blinking span{
+    width: 20px;
+    height: 8px;
+    display: inline-block;
+    border-radius: 20px;
+    background: #00ade5;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    animation: 1s blink infinite;
+    transform-origin: left top;
+}
+
+@keyframes blink{
+    0%{
+        opacity: 0.4;
+    }
+    30%{
+        opacity: 0.6;
+    }
+    60%{
+        opacity: 0.8;
+    }
+    100%{
+        opacity: 1;
+    }
+}
+
+.blinking span:first-child{
+    transform:rotate(45deg) translateX(18px);
+    animation-delay: 0.125s;
+}
+.blinking span:nth-child(2){
+    transform:rotate(90deg) translateX(18px);
+    animation-delay: 0.25s;
+}
+.blinking span:nth-child(3){
+    transform:rotate(135deg) translateX(18px);
+    animation-delay: 0.375s;
+}
+.blinking span:nth-child(4){
+    transform:rotate(180deg) translateX(18px);
+    animation-delay: 0.5s;
+}
+.blinking span:nth-child(5){
+    transform:rotate(225deg) translateX(18px);
+    animation-delay: 0.625s;
+}
+.blinking span:nth-child(6){
+    transform:rotate(270deg) translateX(18px);
+    animation-delay: 0.75s;
+}
+.blinking span:nth-child(7){
+    transform:rotate(315deg) translateX(18px);
+    animation-delay: 0.875s;
+}
+.blinking span:nth-child(8){
+    transform:rotate(360deg) translateX(18px);
+    animation-delay: 0s;
+}
+#sap{
+	cursor: pointer;
+}
+
+</style>
+</head>
+<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css">
+<body>
+	<script src="http://localhost:8080/vue/dist/vue.js"></script>
+	<script src="https://cdn.staticfile.org/jquery/1.10.2/jquery.min.js"></script>
+<div class="logo_box animated bounceInDown" id="container">
+	<div><h1 style="color: #fafafa;letter-spacing: 0;text-shadow: 0px 1px 0px #999, 0px 2px 0px #888, 0px 3px 0px #777, 0px 4px 0px #666, 0px 5px 0px #555, 0px 6px 0px #444, 0px 7px 0px #333, 0px 8px 7px #001135;font-size: 28px;">中小型企业客户管理</h1>
+	<form action="#" name="f" method="post">
+		<div class="input_outer">
+			<img src="/images/user.png" class="u_user">
+			<input v-model="username" name="logname" class="text" @focus="userFocus" @blur="userBlur" style="color: #FFFFFF !important" type="text">
+		</div>
+		<div class="input_outer">
+			<img src="/images/user.png" class="u_user">
+			<input id="ipt" v-model="password" v-bind:type="types" class="text" @focus="focus" @blur="blur" style="color: #FFFFFF !important">
+		</div>
+		<div class="mb2"><a class="act-but submit" @click="submit" href="javascript:;" style="color: #FFFFFF">登录</a></div>
+	</form>
+	<div v-bind:class="[classOne,classTwo]" style="color:#FA5B5B">
+		<p style="margin-left: 15px;">
+			{{info}}
+		</p>
+	</div>
+	<a href="#" class="login-fgetpwd" style="color: #FFFFFF">忘记密码?</a>
+	<a href="#" @click="switchLogMethod" style="color: #FFFFFF;float:right">切换人脸登录</a>
+	</div>
+</div>
+<div id="faceCheck" style="width:470px;height:600px;background-color:rgba(4,21,45,0.9);border-radius: 5px;margin: 75px auto; display: none;">
+	<div style="opacity: 1">
+		<div style="position:relative;top:50px;left:100px;height:205px;width:270px;background-image: url(/images/loginPhotoBorder.png)">
+			<video style="height:183px;width:252px;position: relative;top:10px;left:8px"></video>
+		</div>
+		<div style="position: relative;top:100px;left:auto;" class="blinking">
+	        <span></span>
+	        <span></span>
+	        <span></span>
+	        <span></span>
+	        <span></span>
+	        <span></span>
+	        <span></span>
+	        <span></span>
+	    </div>
+		<p style="position:relative;top:100px;font-size:18px;color:white;text-align: center" id="info"></p>
+		<img src="http://localhost:8080/images/loginComponent.png" style="position:relative;width:100%;top:148px;opacity: 0.6">
+		<a id="sap" style="position:relative;top:180px;font-size:20px;color:white;left:155px;text-decoration: none;">点击切换登录方式</a>
+	</div>
+</div>
+<script type="text/javascript">
+	var video=document.querySelector('video');
+    var output=document.getElementById('output');
+    var canvas;
+    var info="";
+    var face_id1 = "",
+        face_id2 = "",
+        index,
+        pic=1;
+    var file1Url;
+	var file1;
+	var timer;
+	var sap=document.getElementById('sap');
+	sap.onclick=function(){
+		$('#container').show();
+		$('#faceCheck').hide();
+	}
+	
+	function closeCamera(){
+		console.log("closeCamera")
+	}
+
+	function $(id) {
+        if (typeof jQuery == 'undefined' || (typeof id == 'string' && document.getElementById(id))) {
+            return document.getElementById(id);
+        } else if (typeof id == 'object' || !/^\w*$/.exec(id) ||
+                /^(body|div|span|a|input|textarea|button|img|ul|li|ol|table|tr|th|td)$/.exec(id)) {
+            return jQuery(id);
+        }
+        return null;
+    }
+
+	function openCamera(){
+		navigator.getUserMedia=navigator.getUserMedia||navigator.webkitGetUserMedia||navigator.mozGetUserMedia;
+	    if(navigator.getUserMedia){
+	        navigator.getUserMedia({video:{height:183,width:252}},
+	        function(stream){
+	            var video=document.querySelector('video');
+	            video.srcObject=stream;
+	            video.onloadedmetadata=function(e){
+	                video.play();
+	            }
+	        },function(err){
+	            console.log("The following error occurred:"+err.name);
+	        })
+	    }else{
+	        console.log("getUserMedia is not supported");
+	    }
+	}
+
+	function getFile1(){
+		var data={
+			picName:pic
+		}
+		jQuery.ajax({
+            type: "get",
+            url: "http://localhost:8080/check",
+            data:data,
+            success: function (data) {
+            	//console.log(data);
+            	var file=dataURLtoFile(data);
+              	if (!/image\/\w+/.test(file.type)) {
+		            alert("请确保文件为图像类型");
+		            return false;
+		        }
+		        var reader = new FileReader();
+		        reader.readAsDataURL(file);
+		        reader.onload = function (e) {
+		            var x = this.result;
+		            face_id1 = x.substring(x.indexOf(',') + 1);
+		            canvas=document.createElement('canvas');
+			        canvas.width=200;
+			        canvas.height=200;
+			        canvas.getContext('2d').drawImage(video,0,0,canvas.width,canvas.height);
+			        var img=document.createElement('img');
+			        img.src=canvas.toDataURL('image/png');
+			        var file=dataURLtoFile(img.src,'test.png');
+			        readFile2(file);
+			        index = 0;
+			        checkInfo(face_id2);
+		        }      
+            },
+            error: function (res) {
+                console.log(JSON.stringify(res));
+                console.log("异常：请确认填写信息正确后再刷新重试！");
+            }
+        });
+	}
+
+	function nextCompare(){
+		var data={
+			picName:pic
+		}
+		jQuery.ajax({
+            type: "get",
+            url: "http://localhost:8080/check",
+            data:data,
+            success: function (data) {
+            	var file=dataURLtoFile(data);
+              	if (!/image\/\w+/.test(file.type)) {
+		            alert("请确保文件为图像类型");
+		            return false;
+		        }
+		        var reader = new FileReader();
+		        reader.readAsDataURL(file);
+		        reader.onload = function (e) {
+		            var x = this.result;
+		            face_id1 = x.substring(x.indexOf(',') + 1);
+			        checkInfo(face_id1);
+		        }      
+            },
+            error: function (res) {
+                console.log(JSON.stringify(res));
+                console.log("异常：请确认填写信息正确后再刷新重试！");
+            }
+        });
+	}
+
+    function readFile2(file){
+        if (!/image\/\w+/.test(file.type)) {
+            alert("请确保文件为图像类型");
+            return false;
+        }
+        var reader = new FileReader();
+        reader.readAsDataURL(file);
+        reader.onload = function (e) {
+            var x = this.result;
+            face_id2 = x.substring(x.indexOf(',') + 1);
+        }
+    }
+
+    function dataURLtoFile(dataurl, filename) {
+	    var arr = dataurl.split(',');
+	    var mime = arr[0].match(/:(.*?);/)[1];
+	    var bstr = atob(arr[1]);
+	    var n = bstr.length; 
+	    var u8arr = new Uint8Array(n);
+	    while(n--){
+	        u8arr[n] = bstr.charCodeAt(n);
+	    }
+	    return new File([u8arr], filename, {type:mime});
+    }
+
+    function start() {
+        getFile1();
+    };
+
+    function checkInfo(uri) {
+        var aid = "a8443594566c46f48450bdf5797ac19e";
+        var akey = "b7ff5e06701d46749cb7be86a065ee90";
+        jQuery.ajax({
+            type: "POST",
+            url: "http://api.eyekey.com/face/Check/checking",//检测有效后会由系统生成唯一的face_id
+            data: {
+                'app_id': aid,
+                'app_key': akey,
+                'img': uri,
+                'mode': "",
+                'tip': ""
+            },
+            contentType: "application/x-www-form-urlencoded",
+            dataType: "json",
+            success: function (data) {
+            	console.log(data.res_code)
+                if (data.res_code == "0000" && index == 0) {
+                    face_id2 = data.face[0].face_id;
+                    index++;
+                   // console.log("成了1")
+                    checkInfo(face_id1);
+                } else if (data.res_code == "0000" && index == 1) {
+                    face_id1 = data.face[0].face_id;
+                   // console.log("成了2");
+                    matchCompare();
+                }else{
+                	document.getElementById('info').innerHTML="未检测到人脸...";
+                	start();
+                }
+            },
+            error: function (res) {
+               	console.log("error")
+            }
+        });
+    }
+
+    function matchCompare() {
+        jQuery.ajax({
+            url: "http://api.eyekey.com/face/Match/match_compare",
+            type: 'GET',
+            dataType: 'json',
+            data: {
+                app_id: "a8443594566c46f48450bdf5797ac19e",
+                app_key: "b7ff5e06701d46749cb7be86a065ee90",
+                face_id1: face_id1,
+                face_id2: face_id2
+            },
+            success: function (resMsg) {
+                if (resMsg.res_code == "0000") {
+                    if(resMsg.similarity>75){
+                    	console.log(resMsg.similarity)
+                        document.getElementById("info").innerHTML="登陆成功，正在跳转...";
+                        setTimeout(function(){
+                        	window.location.href='index';
+                        },3000)
+                       	return;
+                    }else{
+                  		document.getElementById("info").innerHTML="正在检测..."
+                    }
+                    if(pic<9){
+                    	pic++;
+                    	console.log(resMsg.similarity);
+                    	nextCompare();
+                    }else{
+                    	document.getElementById("info").innerHTML="请将人脸对准窗口...";
+                    	
+                    	pic=1;
+                    	start();
+                    }
+                }
+            },
+            error: function (res) {
+            	console.log("error...")
+            }
+        });
+    }
+
+	const app=new Vue({
+		el:'#container',
+		data:{
+			password:'输入密码',
+			username:"输入ID或用户名登录",
+			types:'text',
+			info:"",
+			classOne:'animated',
+			classTwo:''
+		},
+		methods:{
+			switchLogMethod:function(){
+				$('#container').hide();
+				document.getElementById('faceCheck').style.display='block';
+				openCamera();
+				start();
+			},
+			userFocus:function(){
+				if(this.username=="输入ID或用户名登录"){
+					this.username=""
+				}
+			},
+			userBlur:function(){
+				if(this.username==''){
+					this.username="输入ID或用户名登录"
+				}
+			},
+			focus:function(){
+				if(this.password=="输入密码"){
+					this.password="";
+					this.types="password"
+				}
+			},
+			blur:function(){
+				if(this.password==''){
+					this.password='输入密码';
+					this.types="text";
+				}
+			},
+			submit:function(){
+				var data={
+					username:this.username,
+					password:this.password
+				}
+				this.classTwo=''
+				if(this.username=='输入ID或用户名登录'||this.password=='输入密码'){
+					app.classTwo='shake'
+					app.info="information is not completed!";
+					return;
+				}
+				jQuery.ajax({
+					  url: '/customer/login',
+					  data: data,
+					  method:'post',
+					  success:function(res){
+						if(res=='true'){
+							window.location.href='index';
+						}else{
+							app.classTwo='shake'
+							app.info=res;
+						}
+					  },
+					  failed:function(err){
+					  	console.log("database error!");
+					  	app.classTwo='shake'
+					  	app.info="database error!"
+					  }
+				});
+			}
+		}
+	});
+</script>
+</body>
+</html>

@@ -1,0 +1,31 @@
+<!--pages/Info/Info.wxml-->
+<scroll-view style='background:#f2f2f2;height:1180rpx'>
+  <text class='title'>{{Info.name}}</text>
+  
+
+  <view style='font-size:35rpx;margin-left:30rpx;margin-top:20rpx;font-family:"微软雅黑"'>
+  <text>姓名：{{Info.sex}}</text>
+  <text style='margin-top:20rpx;'>联系方式：{{Info.tel}}</text>
+    <text class='requirement' style='margin-top:20rpx;'>地址：\n{{Info.address}}</text>
+    <text style='margin-top:20rpx;' class='time'>家教次数：{{Info.times}}次</text>
+    <text style='margin-top:20rpx;' class='welfare'>薪资：{{Info.salary}}元/时</text>
+    <text style='margin-top:20rpx;' class='welfare'>评分：{{Info.evaluation}}分</text>
+      <text style='margin-top:20rpx'>预约时间：</text>
+  <view style='margin-top:20rpx;' class="section">
+  <picker
+    mode="date"
+    value="{{date}}"
+    start="{{start}}"
+    end="{{end}}"
+    bindchange="bindDateChange"
+  >
+    <view class="picker">
+      日期选择: {{date}}
+    </view>
+  </picker>
+</view>
+  </view>
+
+  <button bindtap='enroll' class='button'>预  约</button> 
+
+</scroll-view>

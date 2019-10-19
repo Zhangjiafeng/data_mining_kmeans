@@ -1,0 +1,51 @@
+/**app.wxss**/
+
+page{
+ /* font-family: "Microsoft YaHei";*/
+ font-family: "宋体";
+  background-color:#fff;
+  display: flex;
+  flex-direction: column;
+}
+.page-header{
+  display: flex;
+  justify-content: center;
+  border-bottom: 2rpx solid #ccc;
+  margin-bottom:10rpx;
+}
+.page-header-text{
+  padding:20rpx 40rpx;
+  color:#999;
+  text-align: center;
+  font-size:40rpx;
+  margin:0 auto;
+}
+.page-body{
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+}
+.item{
+  display: flex;flex-direction:row;
+  padding: 20rpx 40rpx;
+  border-bottom: 2rpx solid #eee;
+  
+}
+.item .poster{
+  width:4rem;
+  height: 150rpx;
+  margin-right:20rpx;
+}
+.item .meta{
+  flex:1;
+  flex-direction: column;
+}
+.xyz{
+  display: block;
+}
+.rating{
+  color: red;
+  float:right;
+  position: absolute;
+  right:50rpx;
+}
